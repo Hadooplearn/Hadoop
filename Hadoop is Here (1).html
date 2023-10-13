@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadoop is Here</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        section {
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hadoop is Here</h1>
+    </header>
+
+    <section>
+        <h2>Setting up a Single-Node Hadoop Cluster</h2>
+        <p>Date: September 18, 2023</p>
+        <ol>
+            <li>Start your virtual machine.</li>
+            <li>Create the mapper and reducer files and the data file if not given.</li>
+            <li>Access <a href="http://localhost:8080">http://localhost:8080</a>.</li>
+            <li>Files_view: you can upload files in your HDFS.</li>
+            <li>Access <a href="http://localhost:4200">http://localhost:4200</a>.</li>
+            <li>Username and Password: maria_dev.</li>
+            <li>In the terminal, use the following commands:</li>
+            <pre>
+                <code>sudo apt install openssh-server openssh-client</code>
+                <code>sudo systemctl status ssh</code>
+            </pre>
+            <li>Open a web browser and go to <a href="http://localhost:4200">http://localhost:4200</a>.</li>
+            <li>In the terminal, execute the following commands:</li>
+            <pre>
+                <code>hdfs dfs -ls /</code>
+                <code>vi demo.txt</code>
+                <code># Enter something, then :wq to save it</code>
+                <code>hdfs dfs -ls /</code>
+                <!-- Add more HDFS commands as needed -->
+            </pre>
+            <li>Copy files from the local system to Hadoop:</li>
+            <pre>
+                <code>hdfs dfs -copyFromLocal demo.txt /</code>
+                <code># OR</code>
+                <code>hdfs dfs -put demo1.txt /</code>
+                <!-- Add more HDFS commands as needed -->
+            </pre>
+            <li>Create a directory in HDFS:</li>
+            <pre>
+                <code>hdfs dfs -mkdir /user/pritesh</code>
+                <code>hdfs dfs -put demo.txt /user/pritesh</code>
+            </pre>
+            <li>Afternoon session:</li>
+            <pre>
+                <code>echo '127.0.0.1 sandbox-hdp.hortonworks.com sandbox-hdf.hortonworks.com' | sudo tee -a /etc/hosts</code>
+                <code>ssh maria_dev@sandbox-hdp.hortonworks.com -p 2222</code>
+            </pre>
+            <li>LAB1:</li>
+            <pre>
+                <code>cd /</code>
+                <code>cd /usr</code>
+                <code>cd hdp</code>
+                <code>cd current</code>
+                <code>cd hadoop-mapreduce-client</code>
+                <code>ls</code>
+                <!-- Add more steps as needed -->
+            </pre>
+            <li>Create a 'data.txt' file and upload it to the '/user/yourname' directory in HDFS.</li>
+            <li>Check if the file exists using `hdfs dfs -ls /user/pritesh`.</li>
+            <li>Run a Hadoop job:</li>
+            <pre>
+                <code>hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-*-examples.jar wordcount /user/pritesh/data.txt /user/pritesh/MROutput</code>
+                <!-- Add more Hadoop job steps as needed -->
+            </pre>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Additional Session (Date: September 22, 2023)</h2>
+        <p>Adding the 'mapper.py' and 'reducer.py' files in Ambari under 'users -> your_folder'.</p>
+        <p>SSH into the Hadoop sandbox:</p>
+        <pre>
+            <code>ssh maria_dev@sandbox-hdp.hortonworks.com -p 2222</code>
+        </pre>
+        <p>Copy files from HDFS to the local machine:</p>
+        <pre>
+            <code>hdfs dfs -copyToLocal /user/mapdemo/mapper.py .</code>
+        </pre>
+        <p>Process data with Mapper and Reducer:</p>
+        <pre>
+            <code>cat demo.txt | python mapper.py</code>
+            <code>cat demo.txt | python mapper.py | sort -k1,1 | python reducer.py</code>
+        </pre>
+        <p>Run a Hadoop streaming job:</p>
+        <pre>
+            <code>hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -file mapper.py -mapper mapper.py -file reducer.py -reducer reducer.py -input /user/pritesh/data.txt -output /user/mapdemo/MapRedOutput</code>
+        </pre>
+    </section>
+
+    <footer>
+        <p>For more details, read the full article: <a href="https://dev.to/donaldsebleung/setting-up-a-single-node-hadoop-cluster-p0a">Setting up a Single-Node Hadoop Cluster</a></p>
+    </footer>
+</body>
+</html>
