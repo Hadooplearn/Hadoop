@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadoop Installation Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <style>
+        .neu-image {
+            background: #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 8px 8px 8px #a9a9a9, -8px -8px 8px #ffffff;
+            margin: 5px;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .neu-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 3px;
+        }
+		
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 3px;
+            color: #e8491d;
+            text-shadow: 2px 2px 4px #000;
+        }
+        article {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+        }
+        a {
+            color: #e8491d;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background-color: #e7e7e7;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-family: 'Courier New', monospace;
+        }
+        /* Other styles can be added as needed */
+		/* Neumorphism styles for the code blocks */
+		
+            .neu {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 4px 4px 8px #a3a3a3, -4px -4px 8px #ffffff;
+        padding: 8px;
+        margin: 20px 0;
+    }
+
+    pre {
+        margin: 0;
+    }
+
+    code {
+        background-color: transparent;
+        color: #00008b;
+		font-weight: bold;
+        padding: 15px;
+        display: block;
+        border-radius: 5px;
+        font-size: 1em;
+        font-family: 'Times New Romen', monospace;
+    }
+	
+        .code-copy {
+            position: relative;
+            top: -26px;
+            float: right;
+            margin-right: 10px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 3px 3px 6px #a3a3a3,
+                        -3px -3px 6px #ffffff;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .code-copy:hover {
+            box-shadow: inset 3px 3px 6px #a3a3a3,
+                        inset -3px -3px 6px #ffffff;
+        }
+		
+		    .closing-remarks {
+            background-color: #f1f1f1;
+            border-left: 5px solid #e8491d;
+            padding: 10px 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .closing-remarks h2 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .closing-remarks p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #666;
+        }
+		
+		        .config-code code {
+            color: #0f9d58; /* Green text color for code */
+        }
+
+        /* Additional styles ... */
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>The Ultimate Hadoop Installation Guide 🚀</h1>
+    </div>
+</header>
+
+    <div class="container">
+	</div>
+			
+	<div class="container">
+	<h2>Let's Go !</h2>
+		<article>
+
+            <h2>Max min map </h2>
+            <div class="neu">
+                <pre><code>#!/usr/bin/env python3.6
+
+import sys
+
+# Initialize minimum and maximum variables with initial values
+min_value = float('inf')
+max_value = float('-inf')
+
+for line in sys.stdin:
+    # Remove leading and trailing whitespace and split the line into words
+    values = line.strip().split()
+    for value in values:
+        # Convert the value to a float
+        try:
+            num = float(value)
+        except ValueError:
+            # Skip non-numeric values
+            continue
+
+        # Update minimum and maximum values
+        min_value = min(min_value, num)
+        max_value = max(max_value, num)
+
+# Emit the minimum and maximum values
+print(f"min\t{min_value}")
+print(f"max\t{max_value}")
+</code></pre>
+            </div>
+
+            <h2>Max min red</h2>
+            <div class="neu">
+                <pre><code>#!/usr/bin/env python3.6
+
+import sys
+
+# Initialize minimum and maximum variables with initial values
+min_value = float('inf')
+max_value = float('-inf')
+
+for line in sys.stdin:
+    key, value = line.strip().split('\t')
+
+    if key == 'min':
+        min_value = min(min_value, float(value))
+    elif key == 'max':
+        max_value = max(max_value, float(value))
+
+# Emit the final minimum and maximum values
+print(f"Minimum: {min_value}")
+print(f"Maximum: {max_value}")
+</code></pre></div>
+
+			
+			<h2>Word count map </h2>
+			<div class="neu">
+                <pre><code>#!/usr/bin/python3.6
+
+import sys
+
+# Input comes from standard input
+for line in sys.stdin:
+    # Remove leading and trailing whitespace
+    line = line.strip()
+    # Split the line into words
+    words = line.split()
+    # Output word count pairs
+    for word in words:
+        # Send the word count to the reducer
+        print(f"{word}\t1")
+</code></pre>
+            </div>
+
+            <h2>Word count red </h2>
+				<div class="neu">
+                <pre><code>#!/usr/bin/python3.6
+
+import sys
+
+# Initialize variables to store the current word and count
+current_word = None
+current_count = 0
+
+# Create a dictionary to hold word counts
+word_count = {}
+
+# Input comes from the mapper as tab-delimited word,count
+for line in sys.stdin:
+    # Remove leading and trailing whitespace
+    line = line.strip()
+
+    # Split the input received into word and count
+    word, count = line.split('\t', 1)
+
+    # Convert count (currently a string) to int
+    try:
+        count = int(count)
+    except ValueError:
+        continue
+
+    # Check if the word is the same as the current word being processed
+    if current_word == word:
+        current_count += count
+    else:
+        # If the word changes, add the count for the previous word to the dictionary
+        if current_word:
+            word_count[current_word] = word_count.get(current_word, 0) + current_count
+        # Reset current word and count for the new word
+        current_count = count
+        current_word = word
+
+# Add the count for the last word encountered
+if current_word == word:
+    word_count[current_word] = word_count.get(current_word, 0) + current_count
+
+# Sort the dictionary by count in descending order
+sorted_word_count = {k: v for k, v in sorted(word_count.items(), key=lambda item: item[1], reverse=True)}
+
+# Output the words and their counts in descending order
+for word, count in sorted_word_count.items():
+    print(f"{word}\t{count}")
+</code></pre>
+</div>
+
+			
+			
+			<h2>CODE</h2>
+            <div class="neu">
+                <pre><code>jar-hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-streaming.jar -file mapper.py 
+				-mapper mapper.py -file reducer.py -reducer reducer.py -input /user/athira/num.txt 
+				-output /user/athira/output</code></pre>
+			</div>
+
+
+			<h2>HIVE</h2>
+            <p>CREATE TABLE - PARTITION ONE</p>
+            <div class="neu">
+                <pre><code>CREATE TABLE IF NOT EXISTS retail_sales (
+    order_id INT,
+    customer_id INT,
+    product_id INT,
+    product_name STRING,
+    quantity INT,
+    unit_price DOUBLE,
+    total_price DOUBLE,
+    order_date STRING,
+    shipping_address STRING,
+    country STRING,
+    payment_method STRING,
+    status STRING
+)
+PARTITIONED BY (order_year INT, order_month INT)
+CLUSTERED BY (product_id) INTO 5 BUCKETS
+STORED AS ORC;
+</code></pre>
+</div>
+
+			
+			<h2>DYNAMIC PARTITION</h2>
+          <div class="neu">
+                <pre><code>SET hive.exec.dynamic.partition = true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+INSERT INTO TABLE retail_sales
+PARTITION (order_year, order_month)
+SELECT
+    order_id,
+    customer_id,
+    product_id,
+    product_name,
+    quantity,
+    unit_price,
+    total_price,
+    order_date,
+    shipping_address,
+    country,
+    payment_method,
+    status, 
+    YEAR(order_date) as order_year,
+    MONTH(order_date) as order_month
+FROM sales_data;
+
+		</code></pre>
+
+			<h2>PIG</h2>
+            <p>Load Orders data</p>
+            <div class="neu">
+                <pre><code>orders = LOAD 'Orders.csv' USING PigStorage(',') AS (Product_SKU:chararray, Product_Cost:float, Order_Quantity:int);</code></pre>
+            </div>
+
+            <p>Load Country data</p>
+            <div class="neu">
+                <pre><code>country = LOAD 'Country.csv' USING PigStorage(',') AS (Order_ID:int, Retailer_Country:chararray, Product_SKU:chararray);
+</code></pre>
+</div>
+            
+			
+			<p>Data Integration: Join Orders and Country tables</p>
+            <div class="neu">
+                <pre><code>joined_data = JOIN orders BY Product_SKU, country BY Product_SKU;
+</code></pre>
+</div>
+			
+			</div>
+			<p>Data Integration: Explore relationships between tables</p>
+            <div class="neu">
+                <pre><code>explore_data = FOREACH joined_data GENERATE
+    orders::Product_SKU AS Product_SKU,
+    orders::Product_Cost AS Product_Cost,
+    orders::Order_Quantity AS Order_Quantity,
+    country::Retailer_Country AS Retailer_Country,
+    country::Order_ID AS Order_ID;
+</code></pre>
+</div>
+
+
+            <p>Store the integrated data</p>
+            <div class="neu">
+                <pre><code>STORE explore_data INTO 'output_explore_data123';
+</code></pre>
+</div>
+
+
+			<p>Advanced Analysis: Calculate total cost per country</p>
+            <div class="neu">
+                <pre><code>total_cost_per_country = GROUP explore_data BY Retailer_Country;
+result = FOREACH total_cost_per_country GENERATE
+    group AS Retailer_Country,
+    SUM(explore_data.Product_Cost) AS Total_Cost;
+</code></pre>
+</div>
+			<p>Order the result by total cost in descending order</p>
+            <div class="neu">
+                <pre><code>ordered_result = ORDER result BY Total_Cost DESC;
+</code></pre>
+</div>
+	
+            <p>Store the simplified advanced analysis results</p>
+            <div class="neu">
+                <pre><code>STORE ordered_result INTO 'output_advanced_analysis123';
+</code></pre>
+</div>
+
+        </article>
+		<script>
+            // This script will allow users to click on the code to copy it to the clipboard
+            document.querySelectorAll('code').forEach(function(codeBlock) {
+                var button = document.createElement('button');
+                button.className = 'code-copy';
+                button.textContent = 'Copy';
+
+                button.addEventListener('click', function () {
+                    var code = codeBlock.innerText;
+                    var dummy = document.createElement('textarea');
+                    document.body.appendChild(dummy);
+                    dummy.value = code;
+                    dummy.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummy);
+                    button.textContent = 'Copied!';
+                    setTimeout(function() {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+
+                var pre = codeBlock.parentNode;
+                pre.parentNode.insertBefore(button, pre);
+            });
+        </script>
+    </div>
+</body>
+</html>
+
+
